@@ -41,7 +41,7 @@ export const compareNews = async (newPosts: { [key: string]: NewsFields }, oldPo
     let isEqual = true
 
     if (newPost) {
-      isEqual = isObjectEqual(newPost, oldPost, ['LABEL'])
+      isEqual = isObjectEqual(newPost, oldPost, ['LABEL', 'DATE'])
       // console.log(isEqual)
 
       if (!isEqual) {

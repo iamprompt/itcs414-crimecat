@@ -7,7 +7,7 @@ export const GetNewsAirtable = async () => {
   const newsRes: NewsRes = {}
   let offset = undefined
   do {
-    const options: { [key: string]: any } = { pageSize: 100 }
+    const options: { [key: string]: any } = { pageSize: 100, view: 'All News' }
     if (offset) options['offset'] = offset
     const { data } = await AirtableAPI('News').listRecords<AirtableRecords<NewsFields>>(options)
 
@@ -23,6 +23,7 @@ export const GetNewsAirtable = async () => {
       }
     }
     await delay(300)
+    offset = data.offset
   } while (offset)
 
   return newsRes
@@ -44,7 +45,7 @@ export const updateNewsAirtable = async (posts: { [key: string]: NewsFields }) =
   const airtableFormatted = Object.entries(posts).map(([id, p]) => ({ id, fields: p }))
   if (airtableFormatted.length > 0) {
     do {
-      await AirtableAPI('Article').updateRecords(airtableFormatted.splice(0, 10))
+      await AirtableAPI('News').updateRecords(airtableFormatted.splice(0, 10))
       console.log(
         `  [AIRTABLE] Successfully Updated ${Object.keys(posts).length - airtableFormatted.length}/${
           Object.keys(posts).length
