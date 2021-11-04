@@ -46,7 +46,7 @@ export const GetThairathNews = async (limit: number = 100) => {
 }
 ;(async () => {
   const startTime = Date.now()
-  console.log(`===== Start Fetching Beartai Articles at ${getDateTimeFormat(startTime)} =====`)
+  console.log(`===== Start Fetching Thairath Articles at ${getDateTimeFormat(startTime)} =====`)
 
   const news = await GetThairathNews(500)
   const newsAirtable = await GetNewsAirtable()
@@ -61,7 +61,7 @@ export const GetThairathNews = async (limit: number = 100) => {
 
   const stopTime = Date.now()
   console.log(
-    `===== Finish Fetching Beartai Articles at ${getDateTimeFormat(stopTime)} (${getDurationFormat(
+    `===== Finish Fetching Thairath Articles at ${getDateTimeFormat(stopTime)} (${getDurationFormat(
       stopTime - startTime
     )}) =====`
   )

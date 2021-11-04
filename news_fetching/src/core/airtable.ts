@@ -4,6 +4,7 @@ import { delay } from '../utils'
 import { AirtableAPI } from '../utils/airtable'
 
 export const GetNewsAirtable = async () => {
+  console.log(`[AIRTABLE] Fetching Airtable Records`)
   const newsRes: NewsRes = {}
   let offset = undefined
   do {
@@ -22,10 +23,12 @@ export const GetNewsAirtable = async () => {
         TAGS: news.fields.TAGS,
       }
     }
+    console.log(`  [AIRTABLE] ${Object.keys(newsRes).length} Records Fetched`)
     await delay(300)
     offset = data.offset
   } while (offset)
 
+  console.log(`[AIRTABLE] Finish Fetching ${Object.keys(newsRes).length} Airtable Records`)
   return newsRes
 }
 
