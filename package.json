@@ -1,0 +1,26 @@
+{
+  "name": "itcs414-crimecat",
+  "version": "1.0.0",
+  "main": "src/thairath.ts",
+  "repository": "https://github.com/iamprompt/itcs414-crimecat.git",
+  "author": "Supakarn Laorattanakul <wearedprompt@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "ts-node ."
+  },
+  "devDependencies": {
+    "@antfu/eslint-config-ts": "^0.10.0",
+    "@types/node": "^16.11.6",
+    "eslint": "^8.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.4.1",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "axios": "^0.24.0",
+    "dayjs": "^1.10.7",
+    "dotenv": "^10.0.0",
+    "html-entities": "^2.3.2"
+  }
+}
