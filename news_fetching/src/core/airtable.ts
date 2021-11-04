@@ -3,12 +3,12 @@ import { AirtableRecords, NewsFields } from '../@types/AirtableNews'
 import { delay } from '../utils'
 import { AirtableAPI } from '../utils/airtable'
 
-export const GetNewsAirtable = async () => {
+export const GetNewsAirtable = async ({ ...opt }) => {
   console.log(`[AIRTABLE] Fetching Airtable Records`)
   const newsRes: NewsRes = {}
   let offset = undefined
   do {
-    const options: { [key: string]: any } = { pageSize: 100, view: 'All News' }
+    const options: { [key: string]: any } = { pageSize: 100, view: 'All News', ...opt }
     if (offset) options['offset'] = offset
     const { data } = await AirtableAPI('News').listRecords<AirtableRecords<NewsFields>>(options)
 
@@ -21,6 +21,7 @@ export const GetNewsAirtable = async () => {
         DESCRIPTION: news.fields.DESCRIPTION,
         SOURCE: news.fields.SOURCE,
         TAGS: news.fields.TAGS,
+        LABEL: news.fields.LABEL,
       }
     }
     console.log(`  [AIRTABLE] ${Object.keys(newsRes).length} Records Fetched`)

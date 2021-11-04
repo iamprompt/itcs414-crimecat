@@ -1,0 +1,44 @@
+name: Process Dataset from Airtable
+
+on:
+  schedule:
+    - cron: '* */3 * * *'
+  push:
+    branches: [main]
+
+jobs:
+  gen-dataset:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./news_fetching
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: 'yarn'
+          cache-dependency-path: ./news_fetching/yarn.lock
+
+      - name: Install Dependencies
+        run: yarn
+
+      - name: Start Generatong Dataset
+        env:
+          AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
+          AIRTABLE_WORKING_BASE: ${{ secrets.AIRTABLE_WORKING_BASE }}
+          TZ: Asia/Bangkok
+        run: yarn gen
+
+      - uses: EndBug/add-and-commit@v7
+        with:
+          add: 'DATASET.csv'
+          author_name: iamPrompt's Bot
+          author_email: iampromptbot@users.noreply.github.com
+          message: 'Update DATASET.csv'
+          push: true
