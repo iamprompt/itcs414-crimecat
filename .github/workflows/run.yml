@@ -23,6 +23,7 @@ jobs:
         with:
           node-version: 16.x
           cache: 'yarn'
+          cache-dependency-path: ./news_fetching/yarn.lock
 
       - name: Install Dependencies
         run: yarn
