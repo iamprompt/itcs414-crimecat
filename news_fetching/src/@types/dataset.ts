@@ -1,18 +1,17 @@
 export enum CrimeLabel {
+  'Accident',
+  'Battery / Assault',
+  'Cyber Security',
+  'Drug',
+  'Fraud',
   'Gambling',
   'Murdur',
-  'Sexual Abuse',
-  'Theft / Burglary',
-  'Drug',
-  'Battery / Assault',
-  'Accident',
-  // 'Other',
-  'Non-crime',
-  'Fraud',
-  'State Crime',
-  'Cyber Security',
   'National Security',
+  'Sexual Abuse',
+  'State Crime',
+  'Theft / Burglary',
   'Trafficking',
+  'Non-crime',
 }
 
 export type DatasetObj = {
