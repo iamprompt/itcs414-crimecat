@@ -1,4 +1,4 @@
-import dayjs, { getDateTimeFormat, getDurationFormat } from './utils/dayjs'
+import { getDateTimeFormat, getDurationFormat } from './utils/dayjs'
 import { NewsRes } from './@types'
 import { GetNewsAirtable, createNewsAirtable, updateNewsAirtable } from './core/airtable'
 import { CleanUpString, compareNews } from './utils'
@@ -10,7 +10,7 @@ export const GetThairathNews = async (limit: number = 100) => {
   let ts: number = Date.now() / 1000
 
   do {
-    console.log(`[THR] Loading Titles Before ${dayjs(ts * 1000).format('D MMMM YYYY HH:mm')}`)
+    console.log(`[THR] Loading Titles Before ${getDurationFormat(ts * 1000)}`)
     const {
       data: { minTs, items },
     } = await ThairathAPI.TITLE({ section: '/news/crime', ts, limit: limit > 100 ? 100 : limit })

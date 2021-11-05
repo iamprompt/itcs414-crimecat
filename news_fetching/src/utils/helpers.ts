@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { DLNNewsArticle } from '../@types/DLNNews_Article'
 import { ThairathLoadmore, ThairathNewsContent } from '../@types/THRNews'
 
 const ThairathInstance = axios.create({
@@ -23,3 +24,14 @@ const DailyNewsInstance = axios.create({
     per_page: 100,
   },
 })
+
+export const DailyNewsAPI = {
+  NEWS: async ({ news_group = 48, _fields = ['id', 'title', 'content', 'date', 'acf.custom_excerpt'], page = 1 }) =>
+    await DailyNewsInstance.get<DLNNewsArticle[]>('/news', {
+      params: {
+        news_group,
+        _fields,
+        page,
+      },
+    }),
+}
