@@ -33,7 +33,11 @@ export const isObjectEqual = (m: { [key: string]: any }, n: { [key: string]: any
   return true
 }
 
-export const compareNews = async (newPosts: { [key: string]: NewsFields }, oldPosts: { [key: string]: NewsFields }) => {
+export const compareNews = async (
+  newPosts: { [key: string]: NewsFields },
+  oldPosts: { [key: string]: NewsFields },
+  ignoreKey: string[] = ['LABEL', 'DATE']
+) => {
   const updatePosts: { [key: string]: NewsFields } = {}
   for (const [recId, oldPost] of Object.entries(oldPosts)) {
     const newPost = newPosts[oldPost.NEWSID]
@@ -41,8 +45,10 @@ export const compareNews = async (newPosts: { [key: string]: NewsFields }, oldPo
     let isEqual = true
 
     if (newPost) {
-      isEqual = isObjectEqual(newPost, oldPost, ['LABEL', 'DATE'])
+      isEqual = isObjectEqual(newPost, oldPost, ignoreKey)
       // console.log(isEqual)
+      // console.log(newPost)
+      // console.log(oldPost)
 
       if (!isEqual) {
         updatePosts[recId] = newPost

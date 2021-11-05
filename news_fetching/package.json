@@ -6,7 +6,8 @@
   "author": "Supakarn Laorattanakul <wearedprompt@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node .",
+    "start:thairath": "ts-node src/thairath.ts",
+    "start:dailynews": "ts-node src/dailynews.ts",
     "gen": "ts-node src/dataset_gen.ts"
   },
   "devDependencies": {

@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  fetch-news:
+  fetch-thairath:
     runs-on: ubuntu-latest
 
     defaults:
@@ -33,4 +33,32 @@ jobs:
           AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
           AIRTABLE_WORKING_BASE: ${{ secrets.AIRTABLE_WORKING_BASE }}
           TZ: Asia/Bangkok
-        run: yarn start
+        run: yarn start:thairath
+
+  fetch-dailynews:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./news_fetching
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: 'yarn'
+          cache-dependency-path: ./news_fetching/yarn.lock
+
+      - name: Install Dependencies
+        run: yarn
+
+      - name: Start Fetching
+        env:
+          AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
+          AIRTABLE_WORKING_BASE: ${{ secrets.AIRTABLE_WORKING_BASE }}
+          TZ: Asia/Bangkok
+        run: yarn start:dailynews

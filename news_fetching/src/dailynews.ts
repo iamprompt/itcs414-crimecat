@@ -7,10 +7,11 @@ import { createNewsAirtable, GetNewsAirtable, updateNewsAirtable } from './core/
 export const GetDailyNewsArts = async (limit: number = 100) => {
   const newsResult: NewsRes = {}
   let page: number = 1
+  let totalPages: number = 0
 
   do {
     console.log(`[DLN] Loading Page ${page}`)
-    const { data } = await DailyNewsAPI.NEWS({ page })
+    const { data, headers } = await DailyNewsAPI.NEWS({ page })
 
     for (const item of data) {
       console.log(`  [DLN] Article ${Object.keys(newsResult).length + 1} : ${CleanUpString(item.title.rendered)}`)
@@ -24,7 +25,10 @@ export const GetDailyNewsArts = async (limit: number = 100) => {
         SOURCE: 'DAILYNEWS',
       }
     }
-  } while (Object.keys(newsResult).length < limit)
+
+    page += 1
+    totalPages = parseInt(headers['x-wp-totalpages'])
+  } while (Object.keys(newsResult).length < limit && page <= totalPages)
 
   console.log(`[DLN] Finish Loading ${Object.keys(newsResult).length} Articles`)
 
@@ -34,10 +38,10 @@ export const GetDailyNewsArts = async (limit: number = 100) => {
   const startTime = Date.now()
   console.log(`===== Start Fetching Thairath Articles at ${getDateTimeFormat(startTime)} =====`)
 
-  const news = await GetDailyNewsArts(500)
+  const news = await GetDailyNewsArts(50)
   const newsAirtable = await GetNewsAirtable({})
 
-  const [newNews, updateNews] = await compareNews(news, newsAirtable)
+  const [newNews, updateNews] = await compareNews(news, newsAirtable, ['LABEL', 'DATE', 'TAGS'])
 
   console.log(`[AIRTABLE] NEW ARTICLES: ${Object.values(newNews).length} Articles`)
   await createNewsAirtable(Object.values(newNews))
