@@ -38,7 +38,7 @@ export const GetDailyNewsArts = async (limit: number = 100) => {
   const startTime = Date.now()
   console.log(`===== Start Fetching Thairath Articles at ${getDateTimeFormat(startTime)} =====`)
 
-  const news = await GetDailyNewsArts(50)
+  const news = await GetDailyNewsArts(500)
   const newsAirtable = await GetNewsAirtable({})
 
   const [newNews, updateNews] = await compareNews(news, newsAirtable, ['LABEL', 'DATE', 'TAGS'])
