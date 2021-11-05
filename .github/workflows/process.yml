@@ -42,3 +42,34 @@ jobs:
           author_email: iampromptbot@users.noreply.github.com
           message: 'Update DATASET.csv'
           push: true
+  learning:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./news_predict
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas numpy pythainlp scikit-learn seaborn
+
+      - name: Start Processing
+        run: python crimecat_framework.py
+
+      - uses: EndBug/add-and-commit@v7
+        with:
+          add: 'README.md'
+          author_name: iamPrompt's Bot
+          author_email: iampromptbot@users.noreply.github.com
+          message: 'Update README.md'
+          push: true
