@@ -5,7 +5,7 @@ export enum CrimeLabel {
   'Drug',
   'Fraud',
   'Gambling',
-  'Murdur',
+  'Murder',
   'National Security',
   'Sexual Abuse',
   'State Crime',
