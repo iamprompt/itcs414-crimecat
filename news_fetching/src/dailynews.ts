@@ -28,7 +28,6 @@ export const GetDailyNewsArts = async (limit: number = 100) => {
 
     page += 1
     totalPages = parseInt(headers['x-wp-totalpages'])
-    if (Object.keys(newsResult).length === limit) break
   } while (Object.keys(newsResult).length < limit && page <= totalPages)
 
   console.log(`[DLN] Finish Loading ${Object.keys(newsResult).length} Articles`)
@@ -42,7 +41,7 @@ export const GetDailyNewsArts = async (limit: number = 100) => {
   const news = await GetDailyNewsArts(500)
   const newsAirtable = await GetNewsAirtable({})
 
-  const [newNews, updateNews] = await compareNews(news, newsAirtable, ['LABEL', 'TAGS'])
+  const [newNews, updateNews] = await compareNews(news, newsAirtable, ['LABEL', 'TAGS', 'DATE'])
 
   console.log(`[AIRTABLE] NEW ARTICLES: ${Object.values(newNews).length} Articles`)
   await createNewsAirtable(Object.values(newNews))
