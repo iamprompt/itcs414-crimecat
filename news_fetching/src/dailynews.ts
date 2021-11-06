@@ -28,6 +28,7 @@ export const GetDailyNewsArts = async (limit: number = 100) => {
 
     page += 1
     totalPages = parseInt(headers['x-wp-totalpages'])
+    if (Object.keys(newsResult).length === limit) break
   } while (Object.keys(newsResult).length < limit && page <= totalPages)
 
   console.log(`[DLN] Finish Loading ${Object.keys(newsResult).length} Articles`)
