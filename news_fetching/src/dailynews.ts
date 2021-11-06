@@ -18,7 +18,7 @@ export const GetDailyNewsArts = async (limit: number = 100) => {
 
       newsResult[item.id] = {
         NEWSID: `${item.id}`,
-        DATE: item.date,
+        DATE: item.date_gmt,
         TITLE: CleanUpString(item.title.rendered),
         INTRODUCTION: CleanUpString(item.acf.custom_excerpt) || '',
         DESCRIPTION: CleanUpString(item.content.rendered),
@@ -41,7 +41,7 @@ export const GetDailyNewsArts = async (limit: number = 100) => {
   const news = await GetDailyNewsArts(500)
   const newsAirtable = await GetNewsAirtable({})
 
-  const [newNews, updateNews] = await compareNews(news, newsAirtable, ['LABEL', 'DATE', 'TAGS'])
+  const [newNews, updateNews] = await compareNews(news, newsAirtable, ['LABEL', 'TAGS'])
 
   console.log(`[AIRTABLE] NEW ARTICLES: ${Object.values(newNews).length} Articles`)
   await createNewsAirtable(Object.values(newNews))

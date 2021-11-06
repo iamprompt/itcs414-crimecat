@@ -25,6 +25,8 @@ export const isObjectEqual = (m: { [key: string]: any }, n: { [key: string]: any
     if (Array.isArray(v)) {
       if (v.sort().join(', ') !== n[k].sort().join(', ')) return false
     } else if (v instanceof Date) {
+      // console.log(v, n[k])
+
       if (v.getTime() !== n[k].getTime()) return false
     } else if (v !== n[k]) {
       return false

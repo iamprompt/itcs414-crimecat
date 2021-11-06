@@ -26,7 +26,7 @@ const DailyNewsInstance = axios.create({
 })
 
 export const DailyNewsAPI = {
-  NEWS: async ({ news_group = 48, _fields = ['id', 'title', 'content', 'date', 'acf.custom_excerpt'], page = 1 }) =>
+  NEWS: async ({ news_group = 48, _fields = ['id', 'title', 'content', 'date_gmt', 'acf.custom_excerpt'], page = 1 }) =>
     await DailyNewsInstance.get<DLNNewsArticle[]>('/news', {
       params: {
         news_group,

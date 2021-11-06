@@ -1,6 +1,7 @@
 export type DLNNewsArticle = {
   id: number
   date: Date
+  date_gmt: Date
   title: Title
   content: Content
   acf: Acf
