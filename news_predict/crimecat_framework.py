@@ -60,6 +60,7 @@ TFIDF_Data = t_feat.toarray()
 Label_Dict = {
     "Accident": 6,
     "Battery / Assault": 1,
+    "Bribery": 13,
     "Cyber Security": 8,
     "Drug": 3,
     "Fraud": 11,
@@ -166,6 +167,7 @@ else:
 Class_list = [
     "Accident",
     "Battery / Assault",
+    "Bribery",
     "Cyber Security",  # NEW
     "Drug",
     "Fraud",  # NEW
@@ -185,7 +187,7 @@ Main_Class_Data.append([])
 Sub_Class_list = ["precision", "recall", "f1-score", "support"]
 
 for i in range(10):
-    for j in range(15):
+    for j in range(16):
         for k in range(4):
             if Class_list[j] in Kfold_classification_report_data[i]:
                 Main_Class_Data[j][k].append(
@@ -203,24 +205,13 @@ for i in range(10):
 Result_Class_Data = [[[], [], [], []] for i in range(len(Class_list))]
 Result_Class_Data.append([])
 
-for i in range(15):
+for i in range(16):
     for j in range(4):
         Result_Class_Data[i][j].append(round(mean(Main_Class_Data[i][j]), 2))
 
-Result_Class_Data[15].append(round(mean(Main_Class_Data[15]), 2))
+Result_Class_Data[16].append(round(mean(Main_Class_Data[16]), 2))
 
 # Print the Avg of all classification report
-
-Class_list = [
-    "Accident",
-    "Battery/Assault",
-    "Drug",
-    "Gambling",
-    "Murder",
-    "Non-Crime",
-    "Sexual Abuse",
-    "Theft/Burglary",
-]
 Avg_list = ["Macro avg", "Weighted avg"]
 
 print("## Avg Classification Report of 10 KFold", file=f)
@@ -249,11 +240,11 @@ for i in range(len(Label)):
 
 print(
     "\n{:40}{:10.2f}{:10.2f}".format(
-        "Accuracy", Result_Class_Data[15][0], Result_Class_Data[14][3][0]
+        "Accuracy", Result_Class_Data[16][0], Result_Class_Data[15][3][0]
     ),
     file=f,
 )
-for i in range(13, 15):
+for i in range(14, 16):
     print(
         "{:20}{:10.2f}{:10.2f}{:10.2f}{:10.2f}".format(
             f"{Avg_list[i - 15]}:",

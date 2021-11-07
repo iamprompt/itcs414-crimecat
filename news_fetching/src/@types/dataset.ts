@@ -1,6 +1,7 @@
 export enum CrimeLabel {
   'Accident',
   'Battery / Assault',
+  'Bribery',
   'Cyber Security',
   'Drug',
   'Fraud',

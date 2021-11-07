@@ -7,7 +7,7 @@ import { format } from '@fast-csv/format'
   const startTime = Date.now()
   console.log(`===== Start Generating Dataset from Airtable at ${getDateTimeFormat(startTime)} =====`)
 
-  const newsAirtable = await GetNewsAirtable({ filterByFormula: `NOT({LABEL} = '')` })
+  const newsAirtable = await GetNewsAirtable({ filterByFormula: `AND(NOT({LABEL} = ''),NOT({LABEL} = 'Other'))` })
 
   console.log(Object.keys(newsAirtable).length)
 
